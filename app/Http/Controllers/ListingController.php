@@ -21,7 +21,6 @@ class ListingController extends Controller
     // Show all listings
     public function index()
     {
-        // dd(request('tag'));
         return view('listings.index', [
             'listings' => Listing::latest()->filter(request(['tag', 'search']))->paginate(6)
         ]);
@@ -92,5 +91,12 @@ class ListingController extends Controller
         $listing->update($formFields);
 
         return redirect('/listings/' . $listing->id)->with('message', 'Listing updated successfully!');
+    }
+
+    // Remove Listing (DELETE)
+    public function destroy(Listing $listing)
+    {
+        $listing->delete();
+        return redirect('/')->with('message', 'Listing removed successfully!');
     }
 }
