@@ -133,7 +133,7 @@
                                 Save Changes
                             </button>
 
-                            <a href="dashboard.html" class="text-black ml-4">
+                            <a href="{{url()->previous()}}" class="text-black ml-4">
                                 Back
                             </a>
                         </div>
