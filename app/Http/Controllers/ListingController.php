@@ -68,6 +68,11 @@ class ListingController extends Controller
     // Show Edit Form
     public function edit(Listing $listing)
     {
+        // Make sure Logged in user is owner.
+        if ($listing->user_id != auth()->id()) {
+            abort(403, 'No Permission');
+        }
+
         return view('listings.edit', [
             'listing' => $listing
         ]);
@@ -76,6 +81,11 @@ class ListingController extends Controller
     // Store Edit Data (POST)
     public function update(Request $request, Listing $listing)
     {
+        // Make sure Logged in user is owner.
+        if ($listing->user_id != auth()->id()) {
+            abort(403, 'No Permission');
+        }
+
         $formFields = $request->validate([
             'title' => 'required',
             'company' => 'required',
@@ -98,6 +108,11 @@ class ListingController extends Controller
     // Remove Listing (DELETE)
     public function destroy(Listing $listing)
     {
+        // Make sure Logged in user is owner.
+        if ($listing->user_id != auth()->id()) {
+            abort(403, 'No Permission');
+        }
+
         $listing->delete();
         return redirect('/')->with('message', 'Listing removed successfully!');
     }
